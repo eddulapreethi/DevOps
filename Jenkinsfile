@@ -5,9 +5,9 @@ pipeline {
         stage('Install Dependencies and Run Tests') {
             steps {
                 echo 'Installing dependencies and running Recipe Organizer tests'
-                bat 'cd CaseStudy && python -m pip install -r requirements.txt'
-                bat 'cd CaseStudy && python -m pip install pytest'
-                bat 'cd CaseStudy && python -m pytest -v tests'
+                bat 'pip install -r requirements.txt'
+                bat 'python -m pip install pytest'
+                bat 'python -m pytest -v tests'
             }
         }
 
