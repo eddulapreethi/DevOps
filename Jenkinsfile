@@ -14,7 +14,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building Recipe Organizer Docker image'
-                bat 'cd CaseStudy && docker build -t recipe-organizer:build .'
+                bat 'docker build -t recipe-organizer:build .'
             }
         }
 
@@ -53,8 +53,8 @@ pipeline {
                     usernameVariable: 'DOCKERHUB_USERNAME',
                     passwordVariable: 'DOCKERHUB_TOKEN'
                 )]) {
-                    bat 'cd CaseStudy && kubectl apply -f deployment.yaml --validate=false'
-                    bat 'cd CaseStudy && kubectl apply -f service.yaml'
+                    bat 'kubectl apply -f deployment.yaml --validate=false'
+                    bat 'kubectl apply -f service.yaml'
                     bat 'kubectl set image deployment/recipe-organizer recipe-organizer=eddulapreethi/simple_demo:%BUILD_NUMBER%'
                     bat 'kubectl rollout status deployment/recipe-organizer --timeout=120s'
                 }
