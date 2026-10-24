@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{{ recipe.title }} | Recipe Organizer{% endblock %}
+{% block content %}
+<p><a href="{{ url_for('recipes') }}">&larr; Back to recipes</a></p>
+<p class="eyebrow">{{ recipe.category }}</p>
+<h1>{{ recipe.title }}</h1>
+<p class="muted">A recipe from your collection.</p>
+<div class="recipe-meta"><span class="tag">{{ recipe.prep_time }} minutes</span></div>
+<div class="recipe-content">
+    <section class="card">
+        <h2>Ingredients</h2>
+        <ul>
+            {% for ingredient in ingredients %}
+            <li>{{ ingredient }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    <section class="card">
+        <h2>Method</h2>
+        <ol>
+            {% for instruction in instructions %}
+            <li>{{ instruction }}</li>
+            {% endfor %}
+        </ol>
+    </section>
+</div>
+{% endblock %}

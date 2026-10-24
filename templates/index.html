@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Home | Recipe Organizer{% endblock %}
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">Your kitchen, organized</p>
+    <h1>Good food starts with a great idea.</h1>
+    <p>Keep favorite meals, ingredients, and cooking steps together. Find inspiration, then make the recipe your own.</p>
+    <a class="button" href="{{ url_for('recipes') }}">Explore recipes</a>
+    <a class="button secondary" href="{{ url_for('add_recipe') }}">Add your own</a>
+</section>
+<section>
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">A little inspiration</p>
+            <h2>Recently added</h2>
+        </div>
+        <span class="muted">{{ total_recipes }} recipes in your collection</span>
+    </div>
+    <div class="grid">
+        {% for recipe in recipes %}
+        <article class="card">
+            <span class="tag">{{ recipe.category }}</span>
+            <h3><a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}">{{ recipe.title }}</a></h3>
+            <p class="muted">{{ recipe.prep_time }} minutes · {{ recipe.ingredients.splitlines()|length }} ingredients</p>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Browse Recipes | Recipe Organizer{% endblock %}
+{% block content %}
+<p class="eyebrow">Your collection</p>
+<h1>Browse recipes</h1>
+<p class="muted">Search by recipe name or category and pick what sounds good.</p>
+<form class="search-form" action="{{ url_for('recipes') }}" method="get">
+    <input type="search" name="q" value="{{ search }}" placeholder="Try pasta, breakfast, dessert..." aria-label="Search recipes">
+    <button class="button" type="submit">Search</button>
+</form>
+{% if recipes %}
+<div class="grid">
+    {% for recipe in recipes %}
+    <article class="card">
+        <span class="tag">{{ recipe.category }}</span>
+        <h3><a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}">{{ recipe.title }}</a></h3>
+        <p class="muted">{{ recipe.prep_time }} minutes · {{ recipe.ingredients.splitlines()|length }} ingredients</p>
+        <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}">View recipe &rarr;</a>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<section class="card">
+    <h2>No recipes found</h2>
+    <p class="muted">Try another search or add a new recipe to your collection.</p>
+    <a class="button" href="{{ url_for('add_recipe') }}">Add a recipe</a>
+</section>
+{% endif %}
+{% endblock %}

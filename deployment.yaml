@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipe-organizer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipe-organizer
+  template:
+    metadata:
+      labels:
+        app: recipe-organizer
+    spec:
+      containers:
+        - name: recipe-organizer
+          image: eddulapreethi/simple_demo:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20

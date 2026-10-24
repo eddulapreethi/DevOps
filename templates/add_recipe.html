@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Add a Recipe | Recipe Organizer{% endblock %}
+{% block content %}
+<p class="eyebrow">Save something delicious</p>
+<h1>Add a recipe</h1>
+<p class="muted">Record the ingredients and steps so this favorite is easy to find again.</p>
+<form class="form-card" method="post" action="{{ url_for('add_recipe') }}">
+    {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+    <label for="title">Recipe name</label>
+    <input id="title" name="title" maxlength="100" value="{{ form.get('title', '') }}" required>
+    <label for="category">Category</label>
+    <input id="category" name="category" maxlength="50" placeholder="Breakfast, lunch, dinner..." value="{{ form.get('category', '') }}" required>
+    <label for="prep_time">Preparation time (minutes)</label>
+    <input id="prep_time" name="prep_time" type="number" min="1" max="1440" value="{{ form.get('prep_time', '') }}" required>
+    <label for="ingredients">Ingredients (one per line)</label>
+    <textarea id="ingredients" name="ingredients" required>{{ form.get('ingredients', '') }}</textarea>
+    <label for="instructions">Instructions</label>
+    <textarea id="instructions" name="instructions" required>{{ form.get('instructions', '') }}</textarea>
+    <button class="button" type="submit">Save recipe</button>
+</form>
+{% endblock %}
